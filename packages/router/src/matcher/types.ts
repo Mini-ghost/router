@@ -5,6 +5,7 @@ import {
   _RouteRecordProps,
   NavigationGuardNextCallback,
   RouteRecordRaw,
+  DuplicateCallback
 } from '../types'
 import { ComponentPublicInstance } from 'vue'
 
@@ -57,6 +58,12 @@ export interface RouteRecordNormalized {
    * @internal
    */
   updateGuards: Set<NavigationGuard>
+  /**
+   * Registered duplicate callback
+   * 
+   * @internal
+   */
+  duplicateCallback: Set<DuplicateCallback>
   /**
    * Registered beforeRouteEnter callbacks passed to `next` or returned in guards
    *

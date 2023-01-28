@@ -505,6 +505,10 @@ export interface NavigationGuard {
   ): NavigationGuardReturn | Promise<NavigationGuardReturn>
 }
 
+export interface DuplicateCallback {
+  (): void | Promise<void>
+}
+
 /**
  * {@inheritDoc NavigationGuard}
  */

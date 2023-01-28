@@ -72,6 +72,8 @@ export type {
   NavigationRedirectError,
 } from './errors'
 
+export { onRouteUpdateDuplicate } from './duplicateCallback'
+
 export {
   onBeforeRouteLeave,
   onBeforeRouteUpdate,

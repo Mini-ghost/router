@@ -670,10 +670,18 @@ export function createRouter(options: RouterOptions): Router {
     let failure: NavigationFailure | void | undefined
 
     if (!force && isSameRouteLocation(stringifyQuery, from, targetLocation)) {
-      failure = createRouterError<NavigationFailure>(
-        ErrorTypes.NAVIGATION_DUPLICATED,
-        { to: toLocation, from }
+      const callbacks: DuplicateCallback[] = []
+      for (const record of toLocation.matched) {
+        record.duplicateCallback.forEach(callback => {
+          callbacks.push(callback)
+        })
+      }
+
+      callbacks.reduce(
+        (promise, callback) => promise.then(() => callback()),
+        Promise.resolve()
       )
+
       // trigger scroll to allow scrolling to the same anchor
       handleScroll(
         from,

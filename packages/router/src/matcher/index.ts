@@ -385,6 +385,7 @@ export function normalizeRouteRecord(
     instances: {},
     leaveGuards: new Set(),
     updateGuards: new Set(),
+    duplicateCallback: new Set(),
     enterCallbacks: {},
     components:
       'components' in record
