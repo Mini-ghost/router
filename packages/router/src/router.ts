@@ -13,6 +13,7 @@ import {
   RouteLocationOptions,
   MatcherLocationRaw,
   RouteParams,
+  DuplicateCallback,
 } from './types'
 import { RouterHistory, HistoryState, NavigationType } from './history/common'
 import {
@@ -59,6 +60,7 @@ import {
   isSameRouteRecord,
 } from './location'
 import { extractComponentsGuards, guardToPromiseFn } from './navigationGuards'
+import { extractComponentsDuplicateCallback } from './duplicateCallback'
 import { warn } from './warning'
 import { RouterLink } from './RouterLink'
 import { RouterView } from './RouterView'
@@ -670,7 +672,7 @@ export function createRouter(options: RouterOptions): Router {
     let failure: NavigationFailure | void | undefined
 
     if (!force && isSameRouteLocation(stringifyQuery, from, targetLocation)) {
-      const callbacks: DuplicateCallback[] = []
+      const callbacks: DuplicateCallback[] = extractComponentsDuplicateCallback(toLocation.matched)
       for (const record of toLocation.matched) {
         record.duplicateCallback.forEach(callback => {
           callbacks.push(callback)

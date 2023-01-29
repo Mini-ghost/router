@@ -2,6 +2,7 @@ import type {
   NavigationGuardWithThis,
   NavigationGuard,
   RouteLocationNormalizedLoaded,
+  DuplicateCallback
 } from './types'
 import { RouterView } from './RouterView'
 import { RouterLink } from './RouterLink'
@@ -52,6 +53,13 @@ declare module '@vue/runtime-core' {
     beforeRouteLeave?: TypesConfig extends Record<'beforeRouteLeave', infer T>
       ? T
       : NavigationGuard
+
+    /**
+     * Duplicate callback called when the router is navigating to duplicate route.
+     */
+    routeUpdateDuplicate?: TypesConfig extends Record<'routeUpdateDuplicate', infer T> 
+      ? T 
+      : DuplicateCallback
   }
 
   export interface ComponentCustomProperties {
