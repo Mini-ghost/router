@@ -114,7 +114,14 @@ export function mergeRouteRecord(
       routeRecord.alias || []
     )
 
-    const props = assign({}, acc.props, routeRecord.props)
+    // only objects (named views) are merged, `assign()` would turn `true`
+    // and functions into `{}`
+    const props =
+      routeRecord.props === undefined
+        ? acc.props
+        : typeof acc.props === 'object' && typeof routeRecord.props === 'object'
+          ? assign({}, acc.props, routeRecord.props)
+          : routeRecord.props
 
     assign(acc, routeRecord)
     acc.meta = meta

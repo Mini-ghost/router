@@ -29,4 +29,25 @@ describe('mergeRouteRecord', () => {
     expect(record.props).toEqual({ aside: true })
     expect(record.meta).toEqual({ title: 'page' })
   })
+
+  it.each([
+    ['true', true],
+    ['a function', (route: { params: object }) => route.params],
+  ])('keeps %s as props', (_label, props) => {
+    const record = mergeRouteRecord(
+      { path: '/:id', component: {} },
+      { props, meta: { title: 'page' } }
+    )
+
+    expect(record.props).toBe(props)
+  })
+
+  it('replaces object props with non-object props', () => {
+    const record = mergeRouteRecord(
+      { path: '/:id', component: {}, props: { id: '1' } },
+      { props: true }
+    )
+
+    expect(record.props).toBe(true)
+  })
 })
