@@ -861,6 +861,20 @@ definePage({
       expect(result?.hasRemainingProperties).toBe(true)
     })
 
+    it('is true with a method', () => {
+      const code = vue`
+<script setup>
+definePage({
+  redirect(to) {
+    return '/'
+  },
+})
+</script>
+`
+      const result = extractDefinePageInfo(code, 'src/pages/test.vue')
+      expect(result?.hasRemainingProperties).toBe(true)
+    })
+
     it('is false for empty definePage object', () => {
       const code = vue`
 <script setup>

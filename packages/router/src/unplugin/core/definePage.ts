@@ -442,6 +442,9 @@ export function extractDefinePageInfo(
       } else {
         routeInfo.hasRemainingProperties = true
       }
+    } else if (prop.type === 'ObjectMethod') {
+      // e.g. `redirect(to) {}`, only available at runtime
+      routeInfo.hasRemainingProperties = true
     }
   }
 
